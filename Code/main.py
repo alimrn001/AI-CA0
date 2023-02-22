@@ -2,6 +2,7 @@ import numpy
 import pandas as pd
 import matplotlib as mtp
 import time
+import matplotlib.pyplot as plt
 
 #PART 1
 
@@ -102,3 +103,117 @@ if(totalMatchedPeople != 0) :
     print('Total time spent :', end)
 
 #PART 9
+print('Genrating plot...\nEach windows must be closed to let program continue.')
+
+# plt.figure()
+# trainDataFrame['age'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['workclass'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['education'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['education-num'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['marital-status'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['occupation'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['relationship'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['race'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['sex'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['capital-gain'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['capital-loss'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['hours-per-week'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['native-country'].hist(legend=True)
+# plt.ion()
+
+# plt.figure()
+# trainDataFrame['salary'].hist(legend=True)
+# plt.show(block=True)
+
+plt.figure()
+trainDataFrame['age'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['workclass'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['education'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['education-num'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['marital-status'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['occupation'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['relationship'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['race'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['sex'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['capital-gain'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['capital-loss'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['hours-per-week'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['native-country'].hist(legend=True)
+plt.show()
+
+plt.figure()
+trainDataFrame['salary'].hist(legend=True)
+plt.show()
+
