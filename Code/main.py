@@ -45,27 +45,17 @@ print(trainDataFrame)
 print('\n---------------------\n')
 
 #PART3
+
 print('Number of NaN for each column :\n')
 print(trainDataFrame.isnull().sum(axis = 0))
 
 print('Replacing NaN values with avg of corresponding column :')
-trainDataFrame['workclass'].fillna(value=trainDataFrame['workclass'].mean(), inplace=True)
-trainDataFrame['occupation'].fillna(value=trainDataFrame['occupation'].mean(), inplace=True)
-trainDataFrame['native-country'].fillna(value=trainDataFrame['native-country'].mean(), inplace=True)
+trainDataFrame['workclass'].fillna(value=trainDataFrame['workclass'].mode()[0], inplace=True)
+trainDataFrame['occupation'].fillna(value=trainDataFrame['occupation'].mode()[0], inplace=True)
+trainDataFrame['native-country'].fillna(value=trainDataFrame['native-country'].mode()[0], inplace=True)
+# print('Number of NaN for each column :\n')
+# print(trainDataFrame.isnull().sum(axis = 0))
 
-# print('age :' , trainDataFrame['age'].isna().sum())
-# print('workclass :', trainDataFrame['workclass'].isna().sum())
-# print('fnlwgt :', trainDataFrame['fnlwgt'].isna().sum())
-# print('education :', trainDataFrame['education'].isna().sum())
-# print('education-num :', trainDataFrame['education-num'].isna().sum())
-# print('marital-status :', trainDataFrame['marital-status'].isna().sum())
-# print('occupation :', trainDataFrame['occupation'].isna().sum())
-# print('relationship :', trainDataFrame['relationship'].isna().sum())
-# print('race :', trainDataFrame['race'].isna().sum())
-# print('sex :', trainDataFrame['sex'].isna().sum())
-# print('capital-gain :', trainDataFrame['capital-gain'].isna().sum())
-# print('capital-loss :', trainDataFrame['capital-loss'].isna().sum())
-# print('hours-per-week :', trainDataFrame['hours-per-week'].isna().sum())
-# print('native-country :', trainDataFrame['native-country'].isna().sum())
-# print('occupation :', trainDataFrame['occupation'].isna().sum())
-
+#PART4 
+print('Deleting column(s) containing unique values (applied to __fnlwgt__) :')
+#trainDataFrame = trainDataFrame.drop('fnlwgt', axis=1)
