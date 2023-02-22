@@ -4,6 +4,41 @@ import matplotlib as mtp
 import time
 import matplotlib.pyplot as plt
 
+
+def getColumnNameByIndex(index) :
+    if(index==0) :
+        return 'age'
+    elif(index==1) :
+        return 'workclass'
+    elif(index==2) :
+        return 'fnlwgt'
+    elif(index==3) :
+        return 'education'
+    elif(index==4) :
+        return 'education-num'
+    elif(index==5) :
+        return 'marital-status'
+    elif(index==6) :
+        return 'occupation'
+    elif(index==7) :
+        return 'relationship'
+    elif(index==8) :
+        return 'race'
+    elif(index==9) :
+        return 'sex'
+    elif(index==10) :
+        return 'capital-gain'
+    elif(index==11) :
+        return 'capital-loss'
+    elif(index==12) :
+        return 'hours-per-week'
+    elif(index==13) :
+        return 'native-country'
+    elif(index==14) :
+        return 'salary'
+    else :
+        return 'index-error'
+
 #PART 1
 
 print('Reading CSV file into dataframe and showing contents...')
@@ -105,61 +140,11 @@ if(totalMatchedPeople != 0) :
 #PART 9
 print('Genrating plot...\nEach windows must be closed to let program continue.') # change "show" to "ion" except the last plot to show all windows at once
 
-plt.figure()
-trainDataFrame['age'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['workclass'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['education'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['education-num'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['marital-status'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['occupation'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['relationship'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['race'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['sex'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['capital-gain'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['capital-loss'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['hours-per-week'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['native-country'].hist(legend=True)
-plt.show()
-
-plt.figure()
-trainDataFrame['salary'].hist(legend=True)
-plt.show()
+for i in range(0, 15) :
+    if(i!=2) :
+        plt.figure()
+        trainDataFrame[getColumnNameByIndex(i)].hist(legend=True)
+        plt.show()
 
 #PART 10
 
@@ -169,7 +154,7 @@ trainDataFrame['capital-gain'] = ((trainDataFrame['capital-gain']-(trainDataFram
 trainDataFrame['capital-loss'] = ((trainDataFrame['capital-loss']-(trainDataFrame['capital-loss'].mean())) / (trainDataFrame['capital-loss'].std()))
 trainDataFrame['hours-per-week'] = ((trainDataFrame['hours-per-week']-(trainDataFrame['hours-per-week'].mean())) / (trainDataFrame['hours-per-week'].std()))
 
-print(trainDataFrame.tail())
+print('\n\n', trainDataFrame.tail())
 
 ## non numerical data ???
 
