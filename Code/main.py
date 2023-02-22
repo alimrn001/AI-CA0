@@ -58,4 +58,5 @@ trainDataFrame['native-country'].fillna(value=trainDataFrame['native-country'].m
 
 #PART4 
 print('Deleting column(s) containing unique values (applied to __fnlwgt__) :')
-#trainDataFrame = trainDataFrame.drop('fnlwgt', axis=1)
+trainDataFrame = trainDataFrame.drop('fnlwgt', axis=1)
+print(trainDataFrame)
