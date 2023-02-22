@@ -103,63 +103,7 @@ if(totalMatchedPeople != 0) :
     print('Total time spent :', end)
 
 #PART 9
-print('Genrating plot...\nEach windows must be closed to let program continue.')
-
-# plt.figure()
-# trainDataFrame['age'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['workclass'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['education'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['education-num'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['marital-status'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['occupation'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['relationship'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['race'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['sex'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['capital-gain'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['capital-loss'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['hours-per-week'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['native-country'].hist(legend=True)
-# plt.ion()
-
-# plt.figure()
-# trainDataFrame['salary'].hist(legend=True)
-# plt.show(block=True)
+print('Genrating plot...\nEach windows must be closed to let program continue.') # change "show" to "ion" except the last plot to show all windows at once
 
 plt.figure()
 trainDataFrame['age'].hist(legend=True)
@@ -216,4 +160,18 @@ plt.show()
 plt.figure()
 trainDataFrame['salary'].hist(legend=True)
 plt.show()
+
+#PART 10
+
+trainDataFrame['age'] = ((trainDataFrame['age']-(trainDataFrame['age'].mean())) / (trainDataFrame['age'].std()))
+trainDataFrame['education-num'] = ((trainDataFrame['education-num']-(trainDataFrame['education-num'].mean())) / (trainDataFrame['education-num'].std()))
+trainDataFrame['capital-gain'] = ((trainDataFrame['capital-gain']-(trainDataFrame['capital-gain'].mean())) / (trainDataFrame['capital-gain'].std()))
+trainDataFrame['capital-loss'] = ((trainDataFrame['capital-loss']-(trainDataFrame['capital-loss'].mean())) / (trainDataFrame['capital-loss'].std()))
+trainDataFrame['hours-per-week'] = ((trainDataFrame['hours-per-week']-(trainDataFrame['hours-per-week'].mean())) / (trainDataFrame['hours-per-week'].std()))
+
+print(trainDataFrame.tail())
+
+## non numerical data ???
+
+#PART 11 
 
