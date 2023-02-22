@@ -1,6 +1,7 @@
 import numpy 
 import pandas as pd
 import matplotlib as mtp
+import time
 
 #PART 1
 
@@ -49,7 +50,7 @@ print('\n---------------------\n')
 print('Number of NaN for each column :\n')
 print(trainDataFrame.isnull().sum(axis = 0))
 
-print('Replacing NaN values with avg of corresponding column :')
+print('\n\nReplacing NaN values with avg of corresponding column :')
 trainDataFrame['workclass'].fillna(value=trainDataFrame['workclass'].mode()[0], inplace=True)
 trainDataFrame['occupation'].fillna(value=trainDataFrame['occupation'].mode()[0], inplace=True)
 trainDataFrame['native-country'].fillna(value=trainDataFrame['native-country'].mode()[0], inplace=True)
@@ -66,16 +67,38 @@ print(trainDataFrame)
 
 numOfFemales = (trainDataFrame['sex']==1).sum()
 numOfMales = (trainDataFrame['sex']==0).sum()
-print('Number of females :', numOfFemales)
-print('Number of males :', numOfMales)
+print('\nNumber of females :', numOfFemales)
+print('\nNumber of males :', numOfMales)
 
 conditions = [(trainDataFrame['sex']==0) & (trainDataFrame['marital-status']=='Married-civ-spouse')]
 marriedMenNum = (numpy.where(conditions, 1, 0) == 1).sum()
-print('Number of married men :', marriedMenNum)
+print('\nNumber of married men :', marriedMenNum)
 
 #PART 6 
 
 conditions = [(trainDataFrame['race']=='Black') & (trainDataFrame['workclass']=='Private') & (trainDataFrame['age'] >= 30)]
 privateWorkingBlackMenUpper30 = (numpy.where(conditions, 1, 0)==1).sum()
-print('Number of black men older than 30 working private :', privateWorkingBlackMenUpper30)
+print('\nNumber of black men older than 30 working private :', privateWorkingBlackMenUpper30)
 
+#PART 7
+
+start = time.time()
+print('\nAverage working hour of people with bachelors :', trainDataFrame.loc[(trainDataFrame['education']=='Bachelors'), 'hours-per-week'].mean())
+end = time.time() - start
+print('Total time spent :', end)
+
+#PART 8
+
+totalWorkingHours=0
+totalMatchedPeople=0
+start = time.time()
+for i in range(len(trainDataFrame)) :
+    if(trainDataFrame.loc[i, 'education'] == 'Bachelors') :
+        totalWorkingHours += trainDataFrame.loc[i, 'hours-per-week']
+        totalMatchedPeople += 1
+end=time.time()-start
+if(totalMatchedPeople != 0) :
+    print('\nWorking hours mean :', totalWorkingHours/totalMatchedPeople)
+    print('Total time spent :', end)
+
+#PART 9
