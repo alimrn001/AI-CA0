@@ -44,7 +44,7 @@ print(trainDataFrame)
 
 print('\n---------------------\n')
 
-#PART3
+#PART 3
 
 print('Number of NaN for each column :\n')
 print(trainDataFrame.isnull().sum(axis = 0))
@@ -56,7 +56,26 @@ trainDataFrame['native-country'].fillna(value=trainDataFrame['native-country'].m
 # print('Number of NaN for each column :\n')
 # print(trainDataFrame.isnull().sum(axis = 0))
 
-#PART4 
+#PART 4 
+
 print('Deleting column(s) containing unique values (applied to __fnlwgt__) :')
 trainDataFrame = trainDataFrame.drop('fnlwgt', axis=1)
 print(trainDataFrame)
+
+#PART 5
+
+numOfFemales = (trainDataFrame['sex']==1).sum()
+numOfMales = (trainDataFrame['sex']==0).sum()
+print('Number of females :', numOfFemales)
+print('Number of males :', numOfMales)
+
+conditions = [(trainDataFrame['sex']==0) & (trainDataFrame['marital-status']=='Married-civ-spouse')]
+marriedMenNum = (numpy.where(conditions, 1, 0) == 1).sum()
+print('Number of married men :', marriedMenNum)
+
+#PART 6 
+
+conditions = [(trainDataFrame['race']=='Black') & (trainDataFrame['workclass']=='Private') & (trainDataFrame['age'] >= 30)]
+privateWorkingBlackMenUpper30 = (numpy.where(conditions, 1, 0)==1).sum()
+print('Number of black men older than 30 working private :', privateWorkingBlackMenUpper30)
+
