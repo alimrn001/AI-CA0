@@ -83,6 +83,15 @@ trainDataFrame['native-country'].fillna(value=trainDataFrame['native-country'].m
 
 #PART 4 
 
+# for i in range(0,15) :
+#     print('unique stat for :', getColumnNameByIndex(i), ': ', trainDataFrame[getColumnNameByIndex(i)].is_unique)
+
+#print('unique stat :', trainDataFrame['fnlwgt'].is_unique)
+
+# unique_count = (trainDataFrame.nunique())
+# unique_count = list((unique_count[unique_count == len(trainDataFrame)]).index)
+# print(unique_count, 'to be removed')
+
 print('Deleting column(s) containing unique values (applied to __fnlwgt__) :')
 trainDataFrame = trainDataFrame.drop('fnlwgt', axis=1)
 print(trainDataFrame)
@@ -126,6 +135,7 @@ if(totalMatchedPeople != 0) :
     print('Total time spent :', end)
 
 #PART 9
+
 print('Genrating plot...\nEach windows must be closed to let program continue.') # change "show" to "ion" except the last plot to show all windows at once
 
 for i in range(0, 15) :
@@ -141,15 +151,14 @@ trainDataFrame['education-num'] = ((trainDataFrame['education-num']-(trainDataFr
 trainDataFrame['capital-gain'] = ((trainDataFrame['capital-gain']-(trainDataFrame['capital-gain'].mean())) / (trainDataFrame['capital-gain'].std()))
 trainDataFrame['capital-loss'] = ((trainDataFrame['capital-loss']-(trainDataFrame['capital-loss'].mean())) / (trainDataFrame['capital-loss'].std()))
 trainDataFrame['hours-per-week'] = ((trainDataFrame['hours-per-week']-(trainDataFrame['hours-per-week'].mean())) / (trainDataFrame['hours-per-week'].std()))
+trainDataFrame['sex'] = ((trainDataFrame['sex']-(trainDataFrame['sex'].mean())) / (trainDataFrame['sex'].std()))
 
 print('\n\n', trainDataFrame.head())
-
-## non numerical data ???
 
 #PART 11 
 
 numericalDataColumns = list((trainDataFrame.select_dtypes(include=numpy.number)).columns)
-numericalDataColumns.remove('sex')
+#numericalDataColumns.remove('sex')
 
 for colName in numericalDataColumns :
     salaryHIGH50K = trainDataFrame.loc[(trainDataFrame['salary']=='>50K'), colName]
@@ -160,4 +169,54 @@ for colName in numericalDataColumns :
     plt.legend(['>50K', '<=50K'])
     plt.show()
 
+#PART 12 
 
+testDataFrame = pd.read_csv(r'../test.csv')
+testDataFrame = testDataFrame.replace(['Male', 'Female'] , [0, 1])
+testDataFrame['age'] = ((testDataFrame['age']-(testDataFrame['age'].mean())) / (testDataFrame['age'].std()))
+testDataFrame['education-num'] = ((testDataFrame['education-num']-(testDataFrame['education-num'].mean())) / (testDataFrame['education-num'].std()))
+testDataFrame['capital-gain'] = ((testDataFrame['capital-gain']-(testDataFrame['capital-gain'].mean())) / (testDataFrame['capital-gain'].std()))
+testDataFrame['capital-loss'] = ((testDataFrame['capital-loss']-(testDataFrame['capital-loss'].mean())) / (testDataFrame['capital-loss'].std()))
+testDataFrame['hours-per-week'] = ((testDataFrame['hours-per-week']-(testDataFrame['hours-per-week'].mean())) / (testDataFrame['hours-per-week'].std()))
+testDataFrame['sex'] = ((testDataFrame['sex']-(testDataFrame['sex'].mean())) / (testDataFrame['sex'].std()))
+
+#selected columns => capital-gain, capital-loss, sex
+
+def getIncomePredictionResult_SEX(sex_val) :
+    if(sex_val < 1) :
+        return '>50K'
+    else :
+        return '<=50K'
+
+def getIncomePredictionResult_GAIN(capitalGain_val) :
+    if((capitalGain_val < 3.5) and (capitalGain_val > 0.5)) :
+        return '>50K'
+    return '<=50K'
+
+def getIncomePredictionResult_HPW(hoursPerWeek_Val) : 
+    if((hoursPerWeek_Val > 0.4) and (hoursPerWeek_Val < 2.4)) :
+        return '>50K'
+    return '<=50K'
+
+def getIncomePredictionResult_AGE(age_val) :
+    if((age_val > 0) and (age < 2)) :
+        return '>50K'
+    return '<=50K'
+
+def getIncomePredictionResult_EDNUM(educationNum_val) :
+    if((educationNum_val > 0.5) and (educationNum_val < 2.3)) :
+        return '>50K'
+    return '<=50K'
+
+testDataFrame['incomePrediction_sex'] = testDataFrame['sex'].map(getIncomePredictionResult_SEX)
+testDataFrame['incomePrediction_GAIN'] = testDataFrame['capital-gain'].map(getIncomePredictionResult_GAIN)
+testDataFrame['incomePrediction_HPW'] = testDataFrame['hours-per-week'].map(getIncomePredictionResult_HPW)
+testDataFrame['incomePrediction_EDNUM'] = testDataFrame['education-num'].map(getIncomePredictionResult_EDNUM)
+testDataFrame['incomePrediction_AGE'] = testDataFrame['age'].map(getIncomePredictionResult_EDNUM)
+
+print(testDataFrame.head(15))
+
+
+testDataFrame.to_csv(r'../salaryPrediction.csv',
+columns = ['salary', 'incomePrediction_sex', 'incomePrediction_GAIN', 'incomePrediction_HPW', 'incomePrediction_EDNUM', 'incomePrediction_AGE'],
+index = True)
