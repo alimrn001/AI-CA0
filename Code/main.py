@@ -128,11 +128,11 @@ if(totalMatchedPeople != 0) :
 #PART 9
 print('Genrating plot...\nEach windows must be closed to let program continue.') # change "show" to "ion" except the last plot to show all windows at once
 
-# for i in range(0, 15) :
-#     if(i!=2) :
-#         plt.figure()
-#         trainDataFrame[getColumnNameByIndex(i)].hist(legend=True)
-#         plt.show()
+for i in range(0, 15) :
+    if(i!=2) :
+        plt.figure()
+        trainDataFrame[getColumnNameByIndex(i)].hist(legend=True)
+        plt.show()
 
 #PART 10
 
