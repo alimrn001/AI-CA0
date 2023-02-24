@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib as mtp
 import time
 import matplotlib.pyplot as plt
-
+import scipy.stats as scp
 
 def getColumnNameByIndex(index) :
     if(index==0) :
@@ -128,11 +128,11 @@ if(totalMatchedPeople != 0) :
 #PART 9
 print('Genrating plot...\nEach windows must be closed to let program continue.') # change "show" to "ion" except the last plot to show all windows at once
 
-for i in range(0, 15) :
-    if(i!=2) :
-        plt.figure()
-        trainDataFrame[getColumnNameByIndex(i)].hist(legend=True)
-        plt.show()
+# for i in range(0, 15) :
+#     if(i!=2) :
+#         plt.figure()
+#         trainDataFrame[getColumnNameByIndex(i)].hist(legend=True)
+#         plt.show()
 
 #PART 10
 
@@ -142,9 +142,22 @@ trainDataFrame['capital-gain'] = ((trainDataFrame['capital-gain']-(trainDataFram
 trainDataFrame['capital-loss'] = ((trainDataFrame['capital-loss']-(trainDataFrame['capital-loss'].mean())) / (trainDataFrame['capital-loss'].std()))
 trainDataFrame['hours-per-week'] = ((trainDataFrame['hours-per-week']-(trainDataFrame['hours-per-week'].mean())) / (trainDataFrame['hours-per-week'].std()))
 
-print('\n\n', trainDataFrame.tail())
+print('\n\n', trainDataFrame.head())
 
 ## non numerical data ???
 
 #PART 11 
+
+numericalDataColumns = list((trainDataFrame.select_dtypes(include=numpy.number)).columns)
+numericalDataColumns.remove('sex')
+
+for colName in numericalDataColumns :
+    salaryHIGH50K = trainDataFrame.loc[(trainDataFrame['salary']=='>50K'), colName]
+    salaryLOW50K = trainDataFrame.loc[(trainDataFrame['salary']=='<=50K'), colName]
+    plt.title(colName)
+    plt.scatter(salaryHIGH50K, scp.norm.pdf(salaryHIGH50K, salaryHIGH50K.mean(), salaryHIGH50K.std()), label='>50K')
+    plt.scatter(salaryLOW50K, scp.norm.pdf(salaryLOW50K, salaryLOW50K.mean(), salaryLOW50K.std()), label='<=50K')
+    plt.legend(['>50K', '<=50K'])
+    plt.show()
+
 
